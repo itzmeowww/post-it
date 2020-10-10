@@ -33,7 +33,7 @@ const Profile = () => {
   }, []);
   return (
     <Layout>
-      {user.displayName != "" ? (
+      {user && user.displayName != "" ? (
         <Flex
           w="100vw"
           h="100vh"

@@ -9,10 +9,8 @@ import { ThemeProvider, ColorModeProvider, CSSReset } from "@chakra-ui/core";
 function MyApp({ Component, pageProps }: any) {
   return (
     <ThemeProvider>
-      <ColorModeProvider>
-        <CSSReset />
-        <Component {...pageProps} />
-      </ColorModeProvider>
+      <CSSReset />
+      <Component {...pageProps} />
     </ThemeProvider>
   );
 }
