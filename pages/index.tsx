@@ -1,15 +1,24 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import React from "react";
+import Layout from "../components/Layout";
+import CreatePost from "../components/CreatePost";
+import Posts from "../components/Posts";
+import { Flex } from "@chakra-ui/core";
+const IndexPage = () => {
+  return (
+    <Layout title="Post it!">
+      <Flex
+        align="center"
+        justify="center"
+        maxW="100%"
+        w="100vw"
+        flexDir="row"
+        flexWrap="wrap"
+      >
+        <Posts />
+        <CreatePost />
+      </Flex>
+    </Layout>
+  );
+};
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
-
-export default IndexPage
+export default IndexPage;
