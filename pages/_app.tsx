@@ -2,7 +2,7 @@
 // import "../styles/font.css";
 
 import React from "react";
-import { ThemeProvider, ColorModeProvider, CSSReset } from "@chakra-ui/core";
+import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 
 // import customTheme from "../theme/theme";
 
