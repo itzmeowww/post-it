@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import config from "../src/firebase/config";
 
@@ -53,6 +53,7 @@ const CreatePost = () => {
       firebase.firestore().collection("blog").add({
         title: title,
         content: content,
+        user: user,
       });
       setNotification("Post created");
     } else {
