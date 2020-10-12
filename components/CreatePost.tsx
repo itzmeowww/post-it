@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, ReactNode } from "react";
 import firebase from "firebase";
 import config from "../src/firebase/config";
+
+import "firebase/auth";
 
 import {
   Box,
@@ -11,6 +13,7 @@ import {
   Textarea,
   Text,
 } from "@chakra-ui/core";
+
 const CreatePost = () => {
   if (firebase.apps.length === 0) firebase.initializeApp(config);
   const [title, setTitle] = useState("");
@@ -21,7 +24,28 @@ const CreatePost = () => {
   const toggleShowCreatePost = () => {
     setShowCreatePost(!showCreatePost);
   };
+  if (firebase.apps.length === 0) firebase.initializeApp(config);
 
+  const [user, setUser] = useState({ displayName: "" });
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user: any) => {
+      if (user) {
+        setUser(user);
+      } else {
+        firebase
+          .auth()
+          .getRedirectResult()
+          .then(function (result: any) {
+            console.log(result.user);
+            setUser(result.user);
+          })
+          .catch(function (error) {
+            // Handle error.
+            console.log(error);
+          });
+      }
+    });
+  }, []);
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (title !== "" && content !== "") {
@@ -32,7 +56,7 @@ const CreatePost = () => {
       });
       setNotification("Post created");
     } else {
-      setNotification("Field cannot be empty");
+      setNotification("Field(s) cannot be empty");
     }
 
     setTitle("");
@@ -45,8 +69,8 @@ const CreatePost = () => {
   return (
     <>
       {showCreatePost ? (
-        <Box bg="yellow.300" p="10px" mb="30px">
-          <h2>Add Blog</h2>
+        <Box bg="yellow.300" p="10px" mb="30px" shadow="md">
+          <h2>Add Post</h2>
           <Divider borderColor="black" />
           <Text>{notification}</Text>
           <form onSubmit={handleSubmit}>
@@ -57,7 +81,7 @@ const CreatePost = () => {
                 type="text"
                 value={title}
                 onChange={({ target }: any) => setTitle(target.value)}
-                size="md"
+                size="sm"
               />
             </div>
             <div>
@@ -66,7 +90,7 @@ const CreatePost = () => {
               <Textarea
                 value={content}
                 onChange={({ target }: any) => setContent(target.value)}
-                size="md"
+                size="sm"
               />
             </div>
             <Button mt="10px" mr="10px" onClick={toggleShowCreatePost}>

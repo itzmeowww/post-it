@@ -23,6 +23,7 @@ const PostLayout = ({
       p="10px"
       m="10px"
       cursor="pointer"
+      shadow="md"
     >
       <Box>
         {title == undefined ? (

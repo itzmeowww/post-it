@@ -2,11 +2,11 @@ import firebase from "firebase";
 import "firebase/auth";
 import config from "../src/firebase/config";
 import { Text, Flex, Divider } from "@chakra-ui/core";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Layout from "../components/Layout";
-
 import Login from "../components/login";
+
 const Profile = () => {
   if (firebase.apps.length === 0) firebase.initializeApp(config);
 
@@ -33,7 +33,21 @@ const Profile = () => {
   }, []);
   return (
     <Layout>
-      {user && user.displayName != "" ? (
+      <Login>
+        <Flex
+          w="100vw"
+          h="100vh"
+          align="center"
+          justify="center"
+          flexDir="column"
+        >
+          <Text fontSize="xl">HI</Text>
+          <Divider borderColor="black" />
+          <Text>{user.displayName}</Text>
+        </Flex>
+      </Login>
+
+      {/* {user && user.displayName != "" ? (
         <Flex
           w="100vw"
           h="100vh"
@@ -47,7 +61,7 @@ const Profile = () => {
         </Flex>
       ) : (
         <Login />
-      )}
+      )} */}
     </Layout>
   );
 };
